@@ -1,0 +1,60 @@
+{
+  "JS mod skeleton": {
+    "prefix": "gregmod",
+    "body": [
+      "var open = false;",
+      "var panel = null;",
+      "",
+      "function toggle() {",
+      "\topen = !open;",
+      "\tif (open) {",
+      "\t\tif (!panel) panel = greg.createPanel(\"${1:Example}\");",
+      "\t\tpanel.ClearContent();",
+      "\t\tpanel.AddHeadline(\"Hello from JS\");",
+      "\t\tpanel.AddButton(\"Say hi\", function () { greg.toast(\"Hi!\", 3); });",
+      "\t\tpanel.AddSecondaryButton(\"Close\", toggle);",
+      "\t\tpanel.Show();",
+      "\t} else if (panel) {",
+      "\t\tpanel.Hide();",
+      "\t}",
+      "\tgreg.reportMenu(\"${2:example-mod}\", open);",
+      "}",
+      "",
+      "greg.registerToggle(\"enabled\", \"Enabled\", true);",
+      "greg.registerKey(\"toggle\", \"Toggle panel\", toggle);",
+      "greg.bindMenu(\"${2:example-mod}\", toggle, function () { return open; });",
+      "greg.toast(\"${2:example-mod} loaded.\", 3);",
+      "",
+      "function onSceneLoaded(sceneName) {",
+      "\tif (open) greg.reportMenu(\"${2:example-mod}\", true);",
+      "}"
+    ],
+    "description": "Minimal gregCore JS mod (panel + settings + menu)."
+  },
+  "greg.toast": {
+    "prefix": "greg.toast",
+    "body": ["greg.toast(\"${1:Done.}\", ${2:3});"],
+    "description": "Transient toast notification."
+  },
+  "greg.on": {
+    "prefix": "greg.on",
+    "body": [
+      "greg.on(\"${1:greg.PLAYER.CoinChanged}\", function (p) {",
+      "\t$0",
+      "});"
+    ],
+    "description": "Subscribe to a hook."
+  },
+  "greg panel": {
+    "prefix": "greg.createPanel",
+    "body": [
+      "var panel = greg.createPanel(\"${1:Title}\");",
+      "panel.AddHeadline(\"${2:Hello}\");",
+      "panel.AddLabel(\"${3:Status: ok.}\");",
+      "panel.AddButton(\"${4:Ping}\", function () { greg.toast(\"pong\", 2); });",
+      "panel.AddSecondaryButton(\"Close\", toggle);",
+      "panel.Show();"
+    ],
+    "description": "Create and show a Toolkit panel."
+  }
+}

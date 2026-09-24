@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/mleem97/gregVscode/schemas/mod-manifest.schema.json",
+  "title": "gregCore mod.json",
+  "description": "Manifest for a gregCore Lua script mod (UserData/gregCore/Mods/<lang>/<modId>/mod.json).",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_.-]*$",
+      "description": "Unique lowercase mod id (usually the folder name). Required."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name shown in the Mod Hub."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+",
+      "description": "SemVer version."
+    },
+    "entry": {
+      "type": "string",
+      "description": "Entry script relative to the mod folder (default: main.lua)."
+    },
+    "entrypoint": {
+      "type": "string",
+      "description": "Alias for entry."
+    },
+    "min_framework_version": {
+      "type": "string",
+      "description": "Minimum gregCore version this mod was built against."
+    },
+    "author": {
+      "type": "string",
+      "description": "Mod author."
+    },
+    "description": {
+      "type": "string",
+      "description": "Short mod description."
+    }
+  },
+  "additionalProperties": true
+}

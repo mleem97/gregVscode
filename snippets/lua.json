@@ -1,0 +1,101 @@
+{
+  "Lua mod skeleton": {
+    "prefix": "gregmod",
+    "body": [
+      "-- ${1:modId}: ${2:description}",
+      "",
+      "function on_init()",
+      "\tgreg.ui.log_info(\"[${1:modId}] loaded.\")",
+      "\t$0",
+      "end",
+      "",
+      "function on_update(dt)",
+      "end",
+      "",
+      "function on_shutdown()",
+      "end"
+    ],
+    "description": "Minimal gregCore Lua mod with lifecycle functions."
+  },
+  "on_init": {
+    "prefix": "on_init",
+    "body": ["function on_init()", "\t$0", "end"],
+    "description": "Called when the mod is loaded."
+  },
+  "on_update": {
+    "prefix": "on_update",
+    "body": ["function on_update(dt)", "\t$0", "end"],
+    "description": "Called every frame (dt = delta time)."
+  },
+  "on_scene_loaded": {
+    "prefix": "on_scene_loaded",
+    "body": ["function on_scene_loaded(name)", "\t$0", "end"],
+    "description": "Called when a new scene is loaded."
+  },
+  "on_shutdown": {
+    "prefix": "on_shutdown",
+    "body": ["function on_shutdown()", "\t$0", "end"],
+    "description": "Called before mod reload or game exit."
+  },
+  "on_reload": {
+    "prefix": "on_reload",
+    "body": ["function on_reload()", "\t$0", "end"],
+    "description": "Called after a successful hot-reload."
+  },
+  "greg.on": {
+    "prefix": "greg.on",
+    "body": [
+      "greg.on(\"${1:greg.PLAYER.CoinChanged}\", function(payload)",
+      "\t$0",
+      "end)"
+    ],
+    "description": "Subscribe to a hook or mod event."
+  },
+  "greg.fire": {
+    "prefix": "greg.fire",
+    "body": ["greg.fire(\"${1:my_mod.event}\", { $0 })"],
+    "description": "Fire a mod-to-mod event."
+  },
+  "greg.every": {
+    "prefix": "greg.every",
+    "body": [
+      "greg.every(${1:5}, function()",
+      "\t$0",
+      "end)"
+    ],
+    "description": "Run a callback every n seconds (no per-frame work)."
+  },
+  "greg.wait": {
+    "prefix": "greg.wait",
+    "body": [
+      "greg.wait(${1:5}, function()",
+      "\t$0",
+      "end)"
+    ],
+    "description": "Run a callback once after n seconds."
+  },
+  "Panel with button": {
+    "prefix": "greg.panel",
+    "body": [
+      "local panel = greg.tablet_open(\"${1:Title}\")",
+      "greg.panel_add_label(panel, \"${2:Status: ok.}\")",
+      "greg.panel_add_button(panel, \"${3:Do it}\", function()",
+      "\tgreg.ui.notify(\"${4:Done.}\", 3)",
+      "end)"
+    ],
+    "description": "Tablet panel with label and button."
+  },
+  "Config get/set": {
+    "prefix": "greg.config",
+    "body": [
+      "local ${1:value} = greg.config.get_or(\"${2:key}\", \"${3:default}\")",
+      "greg.config.set(\"${2:key}\", ${1:value})"
+    ],
+    "description": "Read/write a per-mod setting (config.json)."
+  },
+  "Repair all servers": {
+    "prefix": "greg.repair",
+    "body": ["local fixed = greg.server.repair_all()", "greg.ui.log_info(\"Repaired \" .. fixed .. \" servers.\")"],
+    "description": "Repair all broken servers, log the count."
+  }
+}

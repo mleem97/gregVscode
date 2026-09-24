@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/mleem97/gregVscode/schemas/modpack-manifest.schema.json",
+  "title": "gregCore modpack manifest",
+  "description": "Optional Mods/manifest.json: curated set with paths relative to Mods/. Validated by gregCore (dll only, no traversal, never .deactivated).",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "Name of the mod collection."
+    },
+    "Mods": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Mod .dll paths relative to Mods/."
+    },
+    "Library": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Library .dll paths relative to Mods/ (dependency probing)."
+    },
+    "Plugins": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Plugin .dll paths relative to Mods/."
+    }
+  },
+  "additionalProperties": true
+}

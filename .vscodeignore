@@ -1,0 +1,11 @@
+# Source and dev files excluded from the packaged .vsix.
+# Runtime needs: out/, package.json, snippets/, schemas/, templates/,
+# README.md, LICENSE, CHANGELOG.md.
+.vscode/**
+src/**
+test/**
+tsconfig.json
+.gitignore
+docs/**
+media/**
+.git/**

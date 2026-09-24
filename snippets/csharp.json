@@ -1,0 +1,39 @@
+{
+  "GregMod skeleton": {
+    "prefix": "gregmod",
+    "body": [
+      "public sealed class ${1:MyMod} : GregMod",
+      "{",
+      "\tpublic override void OnLoad()",
+      "\t{",
+      "\t\t$0",
+      "\t}",
+      "",
+      "\tpublic override void OnUpdate(float deltaTime)",
+      "\t{",
+      "\t}",
+      "}"
+    ],
+    "description": "Minimal gregCore C# mod class (GregMod with GregMod attribute above it)."
+  },
+  "GregMod attribute": {
+    "prefix": "[GregMod",
+    "body": ["[GregMod(\"${1:mod-id}\", \"${2:Name}\", \"${3:1.0.0}\")]"],
+    "description": "Mod identity attribute for GregMod classes."
+  },
+  "GregHook subscription": {
+    "prefix": "greg.on",
+    "body": [
+      "On(\"${1:greg.PLAYER.CoinChanged}\", payload =>",
+      "{",
+      "\t$0",
+      "});"
+    ],
+    "description": "Subscribe to a hook on the event bus."
+  },
+  "GregDependsOn": {
+    "prefix": "[GregDependsOn",
+    "body": ["[GregDependsOn(\"${1:other-mod-id}\")]"],
+    "description": "Declare a dependency on another mod."
+  }
+}

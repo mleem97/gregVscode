@@ -1,0 +1,155 @@
+{
+  "name": "gregcore-vscode",
+  "displayName": "gregCore Mod Tools",
+  "description": "IntelliSense, snippets, scaffolding and GregLint integration for gregCore Data Center mods (Lua, JS/TS, Rust, C#).",
+  "version": "1.0.0",
+  "publisher": "mleem97",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mleem97/gregVscode.git"
+  },
+  "homepage": "https://github.com/mleem97/gregVscode#readme",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": ["Programming Languages", "Snippets", "Linters", "Other"],
+  "keywords": ["gregcore", "data center", "lua", "melonloader", "modding"],
+  "activationEvents": [
+    "onLanguage:lua",
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:rust",
+    "onCommand:gregcore.newLuaMod",
+    "onCommand:gregcore.newJsMod",
+    "onCommand:gregcore.newRustMod",
+    "onCommand:gregcore.setupJsIntelliSense",
+    "onCommand:gregcore.lintMod"
+  ],
+  "main": "./out/src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "gregcore.newLuaMod",
+        "title": "GregCore: New Lua Mod…"
+      },
+      {
+        "command": "gregcore.newJsMod",
+        "title": "GregCore: New JS Mod…"
+      },
+      {
+        "command": "gregcore.newRustMod",
+        "title": "GregCore: New Rust Mod…"
+      },
+      {
+        "command": "gregcore.setupJsIntelliSense",
+        "title": "GregCore: Setup JS IntelliSense (greg.d.ts + jsconfig)"
+      },
+      {
+        "command": "gregcore.lintMod",
+        "title": "GregCore: Lint Mod with GregLint"
+      }
+    ],
+    "configuration": {
+      "title": "gregCore",
+      "properties": {
+        "gregcore.greglintPath": {
+          "type": "string",
+          "default": "greglint",
+          "description": "Path to the greglint binary (from github.com/mleem97/gregLint)."
+        },
+        "gregcore.defaultAuthor": {
+          "type": "string",
+          "default": "",
+          "description": "Default author inserted by the new-mod scaffolds."
+        },
+        "gregcore.luaIntelliSense": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable greg.* completion and hover for Lua files."
+        }
+      }
+    },
+    "jsonValidation": [
+      {
+        "fileMatch": "**/mod.json",
+        "url": "./schemas/mod-manifest.schema.json"
+      },
+      {
+        "fileMatch": "**/Mods/manifest.json",
+        "url": "./schemas/modpack-manifest.schema.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "lua",
+        "path": "./snippets/lua.json"
+      },
+      {
+        "language": "javascript",
+        "path": "./snippets/javascript.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./snippets/javascript.json"
+      },
+      {
+        "language": "rust",
+        "path": "./snippets/rust.json"
+      },
+      {
+        "language": "csharp",
+        "path": "./snippets/csharp.json"
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "greglint",
+        "required": ["path"],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Mod folder, Mods dir, or .dll to lint."
+          },
+          "severityFloor": {
+            "type": "string",
+            "enum": ["info", "warning", "error"],
+            "description": "Fail the task from this severity up.",
+            "default": "error"
+          },
+          "fix": {
+            "type": "boolean",
+            "description": "Apply safe auto-fixes (mod.json normalization).",
+            "default": false
+          }
+        }
+      }
+    ],
+    "problemMatchers": [
+      {
+        "name": "$greglint",
+        "owner": "greglint",
+        "fileLocation": "relative",
+        "pattern": {
+          "regexp": "^(error|warning|info)\\s+(GL\\d+)\\s+(\\S+)\\s+([^:]*):\\s+(.*)$",
+          "severity": 1,
+          "code": 2,
+          "file": 3,
+          "message": 5
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p tsconfig.json",
+    "test": "npm run compile && node --test \"out/test/**/*.test.js\"",
+    "package": "npm run compile && vsce package --no-dependencies",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "22.7.4",
+    "@types/vscode": "1.93.0",
+    "@vscode/vsce": "2.26.0",
+    "typescript": "5.6.3"
+  }
+}
